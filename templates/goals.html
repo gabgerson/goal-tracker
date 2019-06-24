@@ -16,27 +16,35 @@
       <form action="/add-goal" method="POST">
         <div class="password-email">Title</div>
         <input class="login-input" type="text" name="title" required>
-        <input class="login-input" type="submit" value="Add Gaol">
+        <input class="login-input" type="submit" value="Add Goal">
+      </form>
         </div>
-
-        <div class="login-form">
+  <h3>Add task</h3>
+          {% if session.get("username") %}
             <form action="/add-task" method="POST">
               <div class="password-email">Goal Title</div>
-              <input class="login-input" type="text" name="title" required>
+              <select name="title">
+                
+                {% for goal in goals.each() %}
+                  <option value="{{ goal.key() }}">{{ goal.key() }}</option>
+                {% endfor %}
+              </select>
+              <!-- <input class="login-input" type="text" name="title" required> -->
 
               Task name: <input class="login-input" type="text" name="task" required>
               <input class="login-input" type="submit" value="Add task">
-              </div>
+            </form>
+          {% endif %}
 
 <div id=goals></div>
 {% if session.get("username") %}
 {% if goals.each() is not none %}
 
   {% for goal in goals.each() %}
-    <ul>{{ goal.key() }}</ul>
-     <ul>Tasks</ul>
+    <h2>{{ goal.key() }}</h2>
+     <h3>tasks</h3>
     {% for  k,v in val_(goal) %}
-      <ul>{{ k }}</ul>
+      <h4>{{ k }}</h4>
     {% if v == False %}
       <ul>Not complete</ul>
       {% endif %}

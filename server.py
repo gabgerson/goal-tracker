@@ -134,12 +134,24 @@ def add_goal():
     print(user.val())
     print(user is None)
     if user.val() is None:
-        db.child("goals").child(username).child(title).set(None)
+        db.child("goals").child(username).child(title).set({"task": "no task yet"})
     return redirect("/goals")
     
 
-
+@app.route("/add-task", methods=["POST"])
+def add_task():
+    username = session["username"]
+    title = request.form.get("title")
     
+    task = request.form.get("task")
+    user = db.child("goals").child(username).child(title).get()
+
+    if user.val().get("task"):
+       db.child("goals").child(username).child(title).set({task:False})
+    else:
+        db.child("goals").child(username).child(title).update({task:False})
+    return redirect("/goals")
+
 
 
 if __name__ == "__main__":
