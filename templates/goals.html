@@ -1,5 +1,47 @@
 {% extends "base.html" %}
 
 {% block body %}
+  <h2>Goals</h2>
+  <h3>Add Goal</h3>
 
+  <!-- <form action="/add-goal" methods="POST, GET">
+    title<input type="text" name="title">
+
+
+    <input type="submit">  
+  </form> -->
+
+
+  <div class="login-form">
+      <form action="/add-goal" method="POST">
+        <div class="password-email">Title</div>
+        <input class="login-input" type="text" name="title" required>
+        <input class="login-input" type="submit" value="Add Gaol">
+        </div>
+
+        <div class="login-form">
+            <form action="/add-task" method="POST">
+              <div class="password-email">Goal Title</div>
+              <input class="login-input" type="text" name="title" required>
+
+              Task name: <input class="login-input" type="text" name="task" required>
+              <input class="login-input" type="submit" value="Add task">
+              </div>
+
+<div id=goals></div>
+{% if session.get("username") %}
+{% if goals.each() is not none %}
+
+  {% for goal in goals.each() %}
+    <ul>{{ goal.key() }}</ul>
+     <ul>Tasks</ul>
+    {% for  k,v in val_(goal) %}
+      <ul>{{ k }}</ul>
+    {% if v == False %}
+      <ul>Not complete</ul>
+      {% endif %}
+  {% endfor %}
+  {% endfor %}
+  {% endif %}
+  {% endif %}
 {% endblock %}
